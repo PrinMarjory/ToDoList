@@ -1,0 +1,28 @@
+<div 
+    style="display: flex; gap: 20px; justify-content: space-between;"
+    [ngClass]="{
+        'my-3': true, 
+        'task': true,
+    }"
+>
+    <span 
+        [ngClass]="{
+            'text-decoration-line-through': task.done, 
+            'task-not-done': !task.done
+        }"
+    >
+        {{ task.name }}
+    </span>
+    <span>{{ task.comment }}</span>
+    <button 
+        (click)="onButtonValidate()" 
+        [ngClass]="{
+            'btn': true,
+            'btn-success': !task.done,
+            'btn-warning': task.done,
+        }"
+        [textContent]="task.done ? 'Invalider' : 'Valider'"
+    >
+        Valider
+    </button>
+</div>

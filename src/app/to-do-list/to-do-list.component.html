@@ -1,0 +1,10 @@
+<section class="task-list" *ngIf="tasks.length > 0">
+    <h1 class="mb-4">{{ title }}</h1>
+    <h2 [ngStyle]="{fontWeight: fontWeight}">Les tâches qu'il te reste à faire :</h2>
+    <ul>
+      <li *ngFor="let task of tasks">
+        <!-- Passage de chaque task à ToDoListComponent via @Input -->
+        <digi-task [task]="task" (validate)="onButtonValidate(task.id)"></digi-task>
+      </li>
+    </ul>
+  </section>
