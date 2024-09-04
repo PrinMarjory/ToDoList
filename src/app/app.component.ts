@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink} from '@angular/router';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { Title } from '@angular/platform-browser';
 
@@ -9,12 +9,11 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'digi-root', //custom element
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ToDoListComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, ToDoListComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'] 
 })
 export class AppComponent {
-  title = 'Todo List'; 
   constructor(titleService: Title) {
     titleService.setTitle("TODO List");
   }

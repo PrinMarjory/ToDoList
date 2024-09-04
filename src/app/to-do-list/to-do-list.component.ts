@@ -17,6 +17,8 @@ export class ToDoListComponent {
 
   fontWeight: string = "lighter";
   tasks!: TaskInterface[];
+  title = 'Todo List'; 
+  
   constructor(private dataTasksService: DataTasksService) {
     dataTasksService.loadTasks().subscribe({
       next: (tasksFromHttpRequest) => {
