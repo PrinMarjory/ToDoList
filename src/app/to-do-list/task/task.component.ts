@@ -11,10 +11,10 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskComponent {
   @Input() task!: TaskInterface; /* ! : not null assertion operator */
+  @Output() validate = new EventEmitter<void>(); /* création de l'événement observable validate */
   
-  //Méthodes
-  onButtonValidate() {
-    console.log("Bouton validé/invalidé cliqué");
-    this.task.done = !this.task.done;
+  // Création de la méthode onButtonValidate qui émet (notification next) l'événement validate
+  onButtonValidate(): void {
+    this.validate.emit();
   }
 }
