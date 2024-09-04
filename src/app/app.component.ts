@@ -14,17 +14,5 @@ import { TaskInterface } from './interfaces/task-interface';
   styleUrls: ['./app.component.css'] 
 })
 export class AppComponent {
-  tasks: TaskInterface[] = [
-    {
-      id: '1',
-      name: 'Faire la vaisselle',
-      done: false,
-      comment: 'Dépêche toi mon lapin, je ne supporte pas de voir traîner la vaisselle'
-    },
-    {
-      id: '2',
-      name: 'Faire le ménage',
-      done: true
-    }
-  ];
+  title = 'Todo List'; 
 }

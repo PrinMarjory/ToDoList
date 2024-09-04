@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter} from '@angular/core';
-import { TaskInterface } from '../interfaces/task-interface';
+import { TaskInterface } from '../../interfaces/task-interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,10 +10,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
-  @Input() task!: TaskInterface;
-  @Output() validate = new EventEmitter<void>();
-
-  onButtonValidate(): void {
-    this.validate.emit();
+  @Input() task!: TaskInterface; /* ! : not null assertion operator */
+  
+  //Méthodes
+  onButtonValidate() {
+    console.log("Bouton validé/invalidé cliqué");
+    this.task.done = !this.task.done;
   }
 }

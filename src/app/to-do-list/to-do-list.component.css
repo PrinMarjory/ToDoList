@@ -1,18 +1,19 @@
 h1 {
-    color: #198754; 
-  }
-  
-.task-list h2 {
+  color: #198754; 
+  margin-top: 1.75rem;
+}
+
+h2 {
 margin-bottom: 1rem; 
 }
 
-.task-list ul {
+ul {
 list-style-type: none;
 padding: 0;
 margin: 0;
 }
 
-.task-list li {
+li {
 margin-bottom: 1rem; 
 }
 
