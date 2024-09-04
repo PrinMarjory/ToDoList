@@ -1,8 +1,8 @@
 import { Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskInterface } from '../interfaces/task-interface';
+import { DataTasksService } from '../data-tasks.service';
 import { TaskComponent } from './task/task.component';
-
+import { TaskInterface } from '../interfaces/task-interface';
 
 @Component({
   selector: 'digi-to-do-list',
@@ -16,27 +16,29 @@ export class ToDoListComponent {
   @Input() data: string = "";
 
   fontWeight: string = "lighter";
-  tasks: TaskInterface[] = [
-    {
-      id: '1',
-      name: 'Faire la vaisselle',
-      done: false,
-      comment: 'Dépêche toi mon lapin, je ne supporte pas de voir traîner la vaisselle'
-    },
-    {
-      id: '2',
-      name: 'Faire le ménage',
-      done: true
-    }
-  ];
+  tasks!: TaskInterface[];
+  constructor(private dataTasksService: DataTasksService) {
+    dataTasksService.loadTasks().subscribe({
+      next: (tasksFromHttpRequest) => {
+        this.tasks = tasksFromHttpRequest;
+      },
+      error: (errorMsg) => {
+        console.error("Erreur lors de la récupération des tâches", errorMsg);
+      },
+      complete: () => {
+        console.log("Récupération des tâches terminée");
+      }
+    });
+  } 
 
   //Méthodes
   onButtonValidate(taskId: string): void {
     console.log("Bouton valider/invalider cliqué", taskId);
-    this.tasks.map((task) => {
-      if (task.id === taskId) {
-        task.done = !task.done;
-      }
-    });
+    this.tasks = this.tasks
+      .map((task) => {
+        if (task.id == taskId) return { ...task, done: !task.done };
+        return task;
+      })
+      .sort((a: TaskInterface, b: TaskInterface) => Number(a.done) - Number(b.done));
   }
 }

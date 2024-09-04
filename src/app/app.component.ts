@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
-import { TaskInterface } from './interfaces/task-interface';
+import { Title } from '@angular/platform-browser';
 
 // Décorateur avec ses annotations. Ce décorateur fait appel à une directive qui est une classe qui va
 // déterminer (via les annotations) le comportement du composant
@@ -15,4 +15,7 @@ import { TaskInterface } from './interfaces/task-interface';
 })
 export class AppComponent {
   title = 'Todo List'; 
+  constructor(titleService: Title) {
+    titleService.setTitle("TODO List");
+  }
 }
