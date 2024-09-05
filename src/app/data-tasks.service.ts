@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TaskInterface } from './interfaces/task-interface';
+import { TaskPostInterface } from './interfaces/task-interface';
 import { Observable, BehaviorSubject, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -19,9 +20,9 @@ export class DataTasksService {
   }
 
   // Ajout d'une tâche dans le serveur http://localhost:3000/tasks
-  addTask(task: TaskInterface): Observable<any> {
-    console.log(`Dans addTask de DataTasksService`, task);
-    return this.http.post<TaskInterface>(DataTasksService.url, task);
+  addTask(newTask: TaskPostInterface): Observable<TaskInterface> {
+    console.log(`Dans addTask de DataTasksService`, newTask);
+    return this.http.post<TaskInterface>(DataTasksService.url, newTask);
   }
 
   // Envoi des valeurs du formulaire

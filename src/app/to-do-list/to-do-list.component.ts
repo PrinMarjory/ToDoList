@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataTasksService } from '../data-tasks.service';
 import { TaskComponent } from './task/task.component';
 import { TaskInterface } from '../interfaces/task-interface';
+import { TaskPostInterface } from '../interfaces/task-interface';
 import { FormTaskComponent } from './form-task/form-task.component';
 
 @Component({
@@ -35,21 +36,35 @@ export class ToDoListComponent {
     });
 
     // souscription au service de récupération des valeurs du formulaire et d'envoie de la tâche au serveur
-    this.dataTasksService.getFormValues().subscribe((values) => {
-      if (values) {
-        console.log('Form values dans tasks-list.component.ts :', values);
-        const newTask = { name: values.name, comment: values.comment, id: Date.now().toString(), done: false };
-        this.tasks.push(newTask);
-        this.dataTasksService.addTask(newTask).subscribe({
-          next: (data) => {
-             console.log(`Data récupérée en retour de addTask :`, data);
-          },
-          error: (error) => {
-             console.error('Erreur attrapée :', error);
-          }
-        });
-      }
-    });
+    this.dataTasksService.getFormValues().subscribe({
+        next: (newTaskName) => {
+          console.log(`newTaskName dans todo-list`, newTaskName);
+          const newTaskPost: TaskPostInterface = {
+            name: 'tmp',
+            done: false,
+            comment: '',
+            ...newTaskName,
+          };
+          const newTaskLocal: TaskInterface = {
+            id: 'tmp',
+            ...newTaskPost,
+          };
+          // Ajout de la tâche en local
+          this.tasks.push(newTaskLocal);
+          // Post de la tâche sur le serveur d'API REST
+          this.dataTasksService.addTask(newTaskPost).subscribe({
+            next: (newTaskFromServer: TaskInterface) => {
+              console.log(`newTaskFromServer : `, newTaskFromServer);
+              newTaskLocal.id = newTaskFromServer.id;
+            },
+          });
+        },
+        error: (error) => {
+          console.error(
+            `Erreur dans TodoListComponent getFormValuesObservable ${error.message}`
+          );
+        },
+      });
   } 
 
   //Méthodes

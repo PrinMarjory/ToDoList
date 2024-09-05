@@ -29,16 +29,10 @@
       "comment": "Les plantes ont l'air un peu tristes, elles ont besoin d'eau."
     },
     {
-      "id": "1725527068337",
-      "name": "Faire la poussière",
-      "comment": "C'est sale !",
-      "done": false
-    },
-    {
-      "id": "1725527092954",
-      "name": "Couper la haie",
-      "comment": "",
-      "done": false
+      "id": "8044",
+      "name": "Faire les vitres",
+      "done": false,
+      "comment": "C'est sale !"
     }
   ]
 }
