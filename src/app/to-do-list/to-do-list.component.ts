@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DataTasksService } from '../data-tasks.service';
 import { TaskComponent } from './task/task.component';
 import { TaskInterface } from '../interfaces/task-interface';
+import { FormTaskComponent } from './form-task/form-task.component';
 
 @Component({
   selector: 'digi-to-do-list',
   standalone: true,
-  imports: [CommonModule, TaskComponent],
+  imports: [CommonModule, TaskComponent, FormTaskComponent],
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.css'] 
 })
@@ -20,6 +21,7 @@ export class ToDoListComponent {
   title = 'Todo List'; 
   
   constructor(private dataTasksService: DataTasksService) {
+    // Souscription au service de récupération des tâches
     dataTasksService.loadTasks().subscribe({
       next: (tasksFromHttpRequest) => {
         this.tasks = tasksFromHttpRequest;
@@ -29,6 +31,23 @@ export class ToDoListComponent {
       },
       complete: () => {
         console.log("Récupération des tâches terminée");
+      }
+    });
+
+    // souscription au service de récupération des valeurs du formulaire et d'envoie de la tâche au serveur
+    this.dataTasksService.getFormValues().subscribe((values) => {
+      if (values) {
+        console.log('Form values dans tasks-list.component.ts :', values);
+        const newTask = { name: values.name, comment: values.comment, id: Date.now().toString(), done: false };
+        this.tasks.push(newTask);
+        this.dataTasksService.addTask(newTask).subscribe({
+          next: (data) => {
+             console.log(`Data récupérée en retour de addTask :`, data);
+          },
+          error: (error) => {
+             console.error('Erreur attrapée :', error);
+          }
+        });
       }
     });
   } 

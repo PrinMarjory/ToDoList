@@ -1,0 +1,9 @@
+<div class="container-fluid newsletter">
+    <h2>S'abonner à la newsletter</h2>
+    <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="mb-3">
+        <input type="email" formControlName="email" class="form-control" placeholder="Votre email" required />
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!newsletterForm.valid">S'abonner</button>
+    </form>
+</div>

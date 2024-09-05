@@ -1,11 +1,9 @@
 <div 
     style="display: flex; gap: 20px; justify-content: space-between;"
-    [ngClass]="{
-        'my-3': true, 
-        'task': true,
-    }"
+    class ="my-3 task"
 >
     <span 
+        class="col-2"
         [ngClass]="{
             'text-decoration-line-through': task.done, 
             'task-not-done': !task.done
@@ -13,8 +11,9 @@
     >
         {{ task.name }}
     </span>
-    <span>{{ task.comment }}</span>
+    <span class="col-7">{{ task.comment }}</span>
     <button 
+        class="col-2"
         (click)="onButtonValidate()" 
         [ngClass]="{
             'btn': true,

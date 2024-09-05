@@ -1,0 +1,17 @@
+<!-- On utilise la variable locale #taskForm -->
+<!-- et on donne sa valeur à la méthode register -->
+<form (ngSubmit)="register(taskForm.value)" #taskForm="ngForm" style="display: flex; gap: 20px; justify-content: space-between;" 
+class="my-3 bg-light p-3 border rounded">
+
+    <div class="col-2">
+        <label for="name">Tâche :</label>
+        <input id="name" name="name" ngModel class="form-control" required>
+    </div>
+    <div class="col-7">
+        <label for="comment">Commentaire (optionnel) :</label>
+        <input id="comment" name="comment" ngModel class="form-control">
+    </div>
+    <div class="col-2 align-items-end">
+        <button type="submit" class="btn btn-success">Ajouter une tâche</button>
+    </div>
+  </form>
